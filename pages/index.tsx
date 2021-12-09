@@ -3,11 +3,12 @@ import Layout, { siteTitle } from '../components/layout'
 import Link from 'next/link'
 import DateCom from '../components/date'
 import utilStyles from '../styles/utils.module.css'
-import { getSortedPostsData } from '../lib/posts'
+import { getSortedPostsData, PostData } from '../lib/posts'
 import { format } from 'date-fns'
+import { GetStaticProps } from 'next'
 
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData()
+export const getStaticProps: GetStaticProps = async () => {
+  const allPostsData: PostData[] = getSortedPostsData()
   return {
     props: {
       allPostsData
@@ -15,7 +16,7 @@ export async function getStaticProps() {
   }
 }
 
-export default function Home({ allPostsData }) {
+export default function Home({ allPostsData }: { allPostsData: PostData[] }) {
   const updatedDate = format(Date.now(), 'yyyy-MM-dd');
   return (
     <Layout home>
